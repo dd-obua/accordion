@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import faqs from '../faqs';
 
 const App = () => {
@@ -19,12 +20,16 @@ const Accordion = ({ data }) => {
 };
 
 const AccordionItem = ({ num, title, text }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleClick = () => setIsOpen((is) => !is);
+
   return (
-    <div className="item">
+    <div className="item" onClick={handleClick}>
       <span className="number">{num < 9 ? `0${num + 1}` : num + 1}</span>
       <h2 className="title">{title}</h2>
-      <span className="icon">-</span>
-      <p className="content-box">{text}</p>
+      <span className="icon">{isOpen ? '-' : '+'}</span>
+      {isOpen && <p className="content-box">{text}</p>}
     </div>
   );
 };
